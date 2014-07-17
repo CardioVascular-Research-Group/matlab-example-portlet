@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+	<h:head />
+	<h:body>
+		<h:form>
+
+			<h:outputText value="This tool serves as an example of a portlet calling the Matlab Production Server.  "/>
+			<br/>
+			<h:outputText value="The function call of this example is AddMatrix.  "/>
+			<br/>
+			<h:outputText value="AddMatrix takes two two-dimensional matrices and adds them together."/>
+			<br/>	
+			<h:outputText value="Enter the first matrix here:"/>
+			<br/>
+			<h:inputText required="true" requiredMessage="Please enter a number value." id="matrixinput1" value="#{mPSClientExample.matrix00}" style="width:400px" ></h:inputText>	
+			<h:inputText required="true" requiredMessage="Please enter a number value." id="matrixinput2" value="#{mPSClientExample.matrix01}" style="width:400px" ></h:inputText>	
+			<h:inputText required="true" requiredMessage="Please enter a number value." id="matrixinput3" value="#{mPSClientExample.matrix02}" style="width:400px" ></h:inputText>	
+			<br/>
+			<h:inputText required="true" requiredMessage="Please enter a number value." id="matrixinput4" value="#{mPSClientExample.matrix10}" style="width:400px" ></h:inputText>	
+			<h:inputText required="true" requiredMessage="Please enter a number value." id="matrixinput5" value="#{mPSClientExample.matrix11}" style="width:400px" ></h:inputText>	
+			<h:inputText required="true" requiredMessage="Please enter a number value." id="matrixinput6" value="#{mPSClientExample.matrix12}" style="width:400px" ></h:inputText>	
+			<br/>	
+			<h:outputText value="Here is the second matrix:"/>
+			<br/>	
+			<h:outputText value="#{invokeBacking.printMatrixA2()}"/>
+			<br/>	
+			<p:commandButton value="Execute AddMatrix" id="addmatrix" action="#{invokeBacking.runAddMatrix()}" update="@form" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" />
+		
+		</h:form>
+	</h:body>
+</f:view>
