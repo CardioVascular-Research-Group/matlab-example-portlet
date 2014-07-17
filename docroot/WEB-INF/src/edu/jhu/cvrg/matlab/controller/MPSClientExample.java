@@ -1,3 +1,13 @@
+/*
+ * Created on July 14, 2014
+ *
+ * Copyright Stephen J. Granite, CardioVascular Research Grid (http://www.cvrgrid.org)
+ *
+ * The software below is licensed under Apache License, v 2.0.
+ * (http://www.apache.org/licenses/LICENSE-2.0)
+ *
+ * @author Stephen J. Granite
+ */
 package edu.jhu.cvrg.matlab.controller;
 
 import java.net.URL;
@@ -13,6 +23,25 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.mathworks.mps.client.MWClient;
 import com.mathworks.mps.client.MWHttpClient;
 import com.mathworks.mps.client.MATLABException;
+
+/*
+ * This is the main controller class to connect to the Matlab Production Server (MPS) and
+ * invoke a specific Matlab function, specified by the MATLABAddMatrix interface. 
+ * This code is a part of a portlet implementation of the MPS Example that can be found here:
+ * http://www.mathworks.com/help/mps/qs/create-a-java-application-that-calls-the-deployed-function.html
+ * 
+ * This example starts with two 2x3 matrices that are hard-coded.  Based upon information entered
+ * in the invoke.xhtml page, the values of the first matrix change to the entries provided by the user.
+ * The software then creates an MWClient and, using the specification in the interface, calls the 
+ * matlab function to add the two matrices. Once MPS processes the matrices, the result matrix is returned.
+ * That matrix is then reformatted to work with the result.xthml and display.
+ * 
+ * In the case where there are Exceptions, the tool takes the Exception text and reformats it for display in
+ * result.xhtml.  This then allows the end user to see errors produced by the system and inform the 
+ * developers/admin of any problems.
+ * 
+ * The tool requires the standard Java IO, Utility, Javax Faces, Liferay and MPS Client libraries to function properly.
+ */
 
 @ManagedBean(name="mPSClientExample")
 @SessionScoped
@@ -52,8 +81,6 @@ public class MPSClientExample implements Serializable {
 		setA2(matrix2);
 		
 		try {
-//			MATLABAddMatrix m = getClient().createProxy(new URL("http://10.162.38.221:9910/addmatrix"),
-//					MATLABAddMatrix.class);
 			MATLABAddMatrix m = getClient().createProxy(new URL(PropsUtil.get("mps_server") + "addmatrix"),
 					MATLABAddMatrix.class);
 			double[][] result = m.addmatrix(a1,a2);
